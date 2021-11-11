@@ -20,5 +20,9 @@ namespace DDDProject.Data
         }
 
         public System.Data.Entity.DbSet<DDDProject.ViewModels.ClienteViewModel> Cliente { get; set; }
+
+        public System.Data.Entity.DbSet<Domain.Entities.Produto> Produtoes { get; set; }
+
+        public System.Data.Entity.DbSet<Domain.Entities.Cliente> Clientes { get; set; }
     }
 }

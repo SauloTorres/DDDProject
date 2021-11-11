@@ -13,7 +13,6 @@ namespace Domain.Interfaces
         void Remove(T obj);
         T GetById(int id);
         IEnumerable<T> GetAll();
-        void Dispose();
 
     }
 }

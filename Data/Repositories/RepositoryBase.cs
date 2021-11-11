@@ -9,18 +9,13 @@ using System.Threading.Tasks;
 
 namespace DDDProject.Infra.Data.Repositories
 {
-    public class RepositoryBase<T> : IDisposable, IRepositoryBase<T> where T : class
+    public class RepositoryBase<T> :  IRepositoryBase<T> where T : class
     {
         private readonly DDDProjectContext db = new DDDProjectContext();
         public void Add(T obj)
         {
             db.Set<T>().Add(obj);
             db.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
 
         public IEnumerable<T> GetAll()

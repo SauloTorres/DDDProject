@@ -1,4 +1,4 @@
-﻿@model DDDProject.ViewModels.ClienteViewModel
+﻿@model Domain.Entities.Cliente
 
 @{
     ViewBag.Title = "Edit";
@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>ClienteViewModel</h4>
         <hr />

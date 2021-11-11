@@ -15,110 +15,115 @@ using Domain.Interfaces;
 
 namespace DDDProject
 {
-    public class ClienteController : Controller
+    public class ProdutoController : Controller
     {
+        private readonly IAppProduto _appProduto;
         private readonly IAppCliente _appCliente;
 
-        public ClienteController(IAppCliente appCliente)
+        public ProdutoController(IAppProduto appProduto, IAppCliente appCliente)
         {
+            _appProduto = appProduto;
             _appCliente = appCliente;
         }
 
-        // GET: Cliente
+        // GET: Produto
         public ActionResult Index()
         {
-            return View(_appCliente.GetAll());
+            return View(_appProduto.GetAll());
         }
 
-        // GET: Cliente/Details/5
+        // GET: Produto/Details/5
         public ActionResult Details(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = _appCliente.GetById(id);
-            if (cliente == null)
+            Produto Produto = _appProduto.GetById(id);
+            if (Produto == null)
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+            return View(Produto);
         }
 
-        // GET: Cliente/Create
+        // GET: Produto/Create
         public ActionResult Create()
         {
+            ViewBag.ClienteId = new SelectList(_appCliente.GetAll(), "ClienteId", "Nome");
             return View();
         }
 
-        // POST: Cliente/Create
+        // POST: Produto/Create
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClienteId,Nome,Sobreome,Email,DataCadastro")] Cliente cliente)
+        public ActionResult Create([Bind(Include = "Nome,Valor,Disponivel,ClienteId")] Produto Produto)
         {
             if (ModelState.IsValid)
             {
-                _appCliente.Add(cliente);
+                _appProduto.Add(Produto);
                 return RedirectToAction("Index");
             }
-
-            return View(cliente);
+            ViewBag.ClienteId = new SelectList(_appCliente.GetAll(), "ClienteId", "Nome", Produto.ClienteId);
+            return View(Produto);
         }
 
-        // GET: Cliente/Edit/5
+        // GET: Produto/Edit/5
         public ActionResult Edit(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = _appCliente.GetById(id);
-            if (cliente == null)
+            Produto Produto = _appProduto.GetById(id);
+            if (Produto == null)
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+            ViewBag.ClienteId = new SelectList(_appCliente.GetAll(), "ClienteId", "Nome");
+            return View(Produto);
         }
 
-        // POST: Cliente/Edit/5
+        // POST: Produto/Edit/5
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ClienteId,Nome,Sobreome,Email,DataCadastro")] Cliente cliente)
+        public ActionResult Edit([Bind(Include = "ProdutoId,Nome,Valor,Disponivel,ClienteId")] Produto Produto)
         {
             if (ModelState.IsValid)
             {
-                _appCliente.Update(cliente);
+                _appProduto.Update(Produto);
                 return RedirectToAction("Index");
             }
-            return View(cliente);
+            ViewBag.ClienteId = new SelectList(_appCliente.GetAll(), "ClienteId", "Nome");
+            return View(Produto);
         }
 
-        // GET: Cliente/Delete/5
+        // GET: Produto/Delete/5
         public ActionResult Delete(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = _appCliente.GetById(id);
-            if (cliente == null)
+            Produto Produto = _appProduto.GetById(id);
+            if (Produto == null)
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+            return View(Produto);
         }
 
-        // POST: Cliente/Delete/5
+        // POST: Produto/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cliente cliente = _appCliente.GetById(id);
-            _appCliente.Remove(cliente);
+            Produto Produto = _appProduto.GetById(id);
+            _appProduto.Remove(Produto);
             return RedirectToAction("Index");
         }
 
