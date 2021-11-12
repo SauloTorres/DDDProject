@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Net;
 using System.Web.Mvc;
 using Aplicação.Interfaces;
-using Data.Repositories;
-using DDDProject.Data;
-using DDDProject.ViewModels;
 using Domain.Entities;
-using Domain.Interfaces;
 
 namespace DDDProject
 {
